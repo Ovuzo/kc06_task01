@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shortly</title>
+
+  <!-- Poppins (500,700) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome (social icons) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- No custom CSS file: Bootstrap + inline styles only -->
+</head>
+
+<style>
+  /* =========================
+   SHORTEN RESULT CARD (FIX)
+========================= */
+
+:root {
+   --blue-400: hsl(180, 66%, 49%);
+  --cyan: hsl(180, 66%, 49%);
+  --violet: hsl(257, 27%, 26%);
+   font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    font-size:18px;
+    --c-cyan:hsl(180, 66%, 49%);
+    --c-violet:hsl(257,27%,26%);
+    --c-red:hsl(0,87%,67%);
+    --c-gray-400:hsl(0,0%,75%);
+    --c-gray-500:hsl(257,7%,63%);
+    --c-gray-900:hsl(255,11%,22%);
+    --c-gray-950:hsl(260,8%,14%);
+    --c-bg:#f0f1f6;
+}
+
+.result-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+
+/* inner layout spacing */
+.result-inner {
+  padding: 1rem;
+}
+
+/* original link */
+.result-original {
+  color: var(--c-gray-900);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 1px solid #f1f1f1;
+  padding-bottom: .75rem;
+  margin-bottom: .75rem;
+}
+
+/* short link */
+.result-short {
+  color: var(--c-cyan);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+
+.copy-btn {
+  background: var(--blue-400);
+  border-color: var(--blue-400);
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: hsl(180, 60%, 76%);
+  color: #f1f1f1;
+  
+}
+
+.copy-btn.copied {
+  background: hsl(257, 27%, 26%) !important;
+}
+
+/* desktop layout */
+@media (min-width: 992px) {
+  .result-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .result-original {
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+    max-width: 50%;
+  }
+
+  .result-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .copy-btn {
+    width: auto;
+  }
+}
+
+
+/* =========================
+   SECTION
+========================= */
+.stats-section {
+  background-color: var(--c-bg);
+  padding: 4rem 0 6rem;
+}
+
+.section-title {
+  color: var(--c-gray-900);
+  font-size: clamp(1.8rem, 2.4vw, 2.3rem);
+}
+
+.section-subtitle {
+  color: var(--c-gray-500);
+  max-width: 36rem;
+}
+
+/* =========================
+   CARD
+========================= */
+.feature-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 3.5rem 1.7rem 1.7rem; /* extra top space for icon */
+  position: relative;
+  min-height: 250px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   ICON
+========================= */
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--c-violet);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+/* Desktop: move icon to left */
+@media (min-width: 992px) {
+  .feature-icon {
+    left: 1.7rem;
+    transform: none;
+  }
+}
+
+/* =========================
+   TEXT
+========================= */
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--c-gray-900);
+  margin-top: 1.5rem;
+}
+
+.feature-text {
+  color: var(--c-gray-500);
+}
+
+/* =========================
+   CONNECTORS
+========================= */
+
+/* Desktop horizontal line */
+.connector-horizontal {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--c-cyan);
+  border-radius: 999px;
+  z-index: 0;
+}
+
+/* Mobile vertical line */
+.connector-vertical {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  bottom: 60px;
+  width: 8px;
+  transform: translateX(-50%);
+  background: var(--c-cyan);
+  border-radius: 999px;
+  z-index: 0;
+}
+
+/* =========================
+   SPACING (MOBILE)
+========================= */
+@media (max-width: 991px) {
+  .feature-card {
+    margin-bottom: 3rem;
+  }
+}
+
+/* =========================
+   STAGGER (DESKTOP)
+========================= */
+@media (min-width: 992px) {
+  .card-2 {
+    transform: translateY(25px);
+  }
+
+  .card-3 {
+    transform: translateY(45px); /* slightly lower but not too much */
+  }
+}
+
+
+</style>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-white py-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="images/logo.svg" alt="Shortly" height="28">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div id="nav" class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto ms-lg-4 gap-lg-3">
+          <li class="nav-item"><a class="nav-link fw-bold" style="color:var(--c-gray-500)" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link fw-bold" style="color:var(--c-gray-500)" href="#pricing">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link fw-bold" style="color:var(--c-gray-500)" href="#resources">Resources</a></li>
+        </ul>
+
+        <div class="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-3 mt-3 mt-lg-0">
+          <a class="nav-link fw-bold text-center" style="color:var(--c-gray-500)" href="#login">Login</a>
+          <a
+            class="btn rounded-pill fw-bold"
+            href="#signup"
+            style="background-color:var(--c-cyan); border-color:var(--c-cyan); color:#fff; padding:.7rem 1.5rem;"
+          >
+            Sign Up
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="py-5" style="overflow:hidden; padding-bottom:6.5rem;">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <h1 class="fw-bold" style="color:var(--c-gray-900); line-height:1.05; letter-spacing:-.02em; font-size:clamp(2.4rem,4vw,3.9rem);">
+            More than just<br class="d-none d-md-block">shorter links
+          </h1>
+          <p class="mt-3" style="color:var(--c-gray-500); max-width:34rem;">
+            Build your brand’s recognition and get detailed insights on how your links are performing.
+          </p>
+
+          <a
+            class="btn rounded-pill fw-bold mt-3"
+            href="#shorten"
+            style="background-color:var(--c-cyan); border-color:var(--c-cyan); color:#fff; padding:.7rem 1.5rem;"
+          >
+            Get Started
+          </a>
+        </div>
+
+        <div class="col-lg-6 text-center text-lg-end">
+          <img
+            src="images/illustration-working.svg"
+            class="img-fluid"
+            alt="Working illustration"
+            style="width:min(560px,120%); height:auto; transform:translateX(12%);"
+          >
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SHORTEN + RESULTS -->
+  <section id="shorten" style="background-color:var(--c-bg); padding-bottom:4rem;">
+    <div class="container">
+
+      <!-- Shorten card (overlaps hero) -->
+      <div class="rounded-4 position-relative overflow-hidden"
+           style="margin-top:-4.25rem; background-color:var(--c-violet); padding:1.5rem;">
+        <!-- Responsive background image using <picture> (no CSS media queries needed) -->
+        <picture class="position-absolute top-0 end-0 w-100 h-100" style="z-index:0;">
+          <source media="(max-width: 991.98px)" srcset="images/bg-shorten-mobile.svg">
+          <img src="images/bg-shorten-desktop.svg" alt="" class="w-100 h-100" style="object-fit:cover;">
+        </picture>
+
+        <div class="position-relative" style="z-index:1;">
+          <form id="shortenForm" class="row g-3 align-items-start">
+            <div class="col-lg-9">
+              <label for="urlInput" class="visually-hidden">Shorten a link</label>
+              <input
+                id="urlInput"
+                type="url"
+                class="form-control form-control-lg"
+                placeholder="Shorten a link here..."
+                autocomplete="off"
+                required
+                style="border-radius:10px; padding:1rem 1rem;"
+              >
+              <!-- Bootstrap validation feedback -->
+              <div class="invalid-feedback fst-italic" style="color:var(--c-red);">
+                Please add a valid link
+              </div>
+            </div>
+
+            <div class="col-lg-3 d-grid">
+              <button
+                id="shortenBtn"
+                class="btn btn-lg fw-bold"
+                type="submit"
+                style="background-color:var(--c-cyan); border-color:var(--c-cyan); color:#fff; border-radius:10px; padding:1rem 1.25rem;"
+              >
+                Shorten It!
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Results list -->
+      <div id="results" class="mt-4 d-grid gap-3"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+
+  <section id="features" class="stats-section">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="text-center">
+      <h2 class="fw-bold section-title">
+        Advanced Statistics
+      </h2>
+      <p class="section-subtitle mx-auto mt-2">
+        Track how your links are performing across the web with our advanced statistics dashboard.
+      </p>
+    </div>
+
+    <div class="features-wrapper position-relative mt-5">
+
+      <!-- Desktop connector -->
+      <div class="connector-horizontal d-none d-lg-block"></div>
+
+      <!-- Mobile connector -->
+      <div class="connector-vertical d-lg-none"></div>
+
+      <div class="row g-4 g-lg-5 position-relative z-1">
+
+        <!-- Card 1 -->
+        <!-- <div class="col-lg-4">
+          <article class="feature-card text-center text-lg-start">
+
+            <div class="feature-icon icon-desktop d-none d-lg-flex">
+              <img src="images/icon-brand-recognition.svg" alt="">
+            </div>
+
+            <h3 class="feature-title">Brand Recognition</h3>
+            <p class="feature-text">
+              Boost your brand recognition with each click. Generic links don’t mean a thing.
+              Branded links help instill confidence in your content.
+            </p>
+
+          </article>
+        </div> -->
+
+        <div class="col-lg-4">
+          <article class="feature-card text-center text-lg-start">
+
+            <div class="feature-icon">
+              <img src="images/icon-brand-recognition.svg" alt="">
+            </div>
+
+            <h3 class="feature-title">Brand Recognition</h3>
+            <p>Boost your brand recognition with each click. Generic links don’t mean a thing. Branded links help instill confidence in your content.</p>
+
+          </article>
+        </div>
+
+        <!-- Card 2 -->
+        <!-- <div class="col-lg-4 card-2">
+          <article class="feature-card text-center text-lg-start">
+
+            <div class="feature-icon icon-desktop d-none d-lg-flex">
+              <img src="images/icon-detailed-records.svg" alt="">
+            </div>
+
+            <h3 class="feature-title">Detailed Records</h3>
+            <p class="feature-text">
+              Gain insights into who is clicking your links. Knowing when and where people engage
+              with your content helps inform better decisions.
+            </p>
+
+          </article>
+        </div> -->
+
+          <!-- Card 2 -->
+          <div class="col-lg-4 card-2">
+            <article class="feature-card text-center text-lg-start">
+
+              <div class="feature-icon">
+                <img src="images/icon-detailed-records.svg" alt="">
+              </div>
+
+              <h3 class="feature-title">Detailed Records</h3>
+              <p>Gain insights into who is clicking your links. Knowing when and where people engage with your content helps inform better decisions.</p>
+
+            </article>
+          </div>
+
+
+        <!-- Card 3 -->
+        <!-- <div class="col-lg-4 card-3">
+          <article class="feature-card text-center text-lg-start">
+
+            <div class="feature-icon icon-mobile">
+              <img src="images/icon-fully-customizable.svg" alt="">
+            </div>
+
+            <h3 class="feature-title">Fully Customizable</h3>
+            <p class="feature-text">
+              Improve brand awareness and content discoverability through customizable links,
+              supercharging audience engagement.
+            </p>
+
+          </article>
+        </div> -->
+        <div class="col-lg-4 card-3">
+          <article class="feature-card text-center text-lg-start">
+
+            <div class="feature-icon">
+              <img src="images/icon-fully-customizable.svg" alt="">
+            </div>
+
+            <h3 class="feature-title">Fully Customizable</h3>
+            <p>Improve brand awareness and content discoverability through customizable links, supercharging audience engagement.</p>
+
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- BOOST CTA -->
+  <section id="pricing" class="position-relative overflow-hidden" style="background-color:var(--c-violet); padding:4rem 0;">
+    <picture class="position-absolute top-0 start-0 w-100 h-100" style="z-index:0;">
+      <source media="(max-width: 991.98px)" srcset="images/bg-boost-mobile.svg">
+      <img src="images/bg-boost-desktop.svg" alt="" class="w-100 h-100" style="object-fit:cover;">
+    </picture>
+
+    <div class="container text-center position-relative" style="z-index:1;">
+      <h2 class="fw-bold text-white" style="font-size:clamp(1.8rem,2.5vw,2.4rem);">Boost your links today</h2>
+      <a
+        class="btn rounded-pill fw-bold mt-3"
+        href="#shorten"
+        style="background-color:var(--c-cyan); border-color:var(--c-cyan); color:#fff; padding:.7rem 1.5rem;"
+      >
+        Get Started
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="resources" style="background-color:var(--c-gray-950); color:#fff;">
+    <div class="container py-5">
+      <div class="row g-4">
+        <div class="col-lg-3">
+          <img src="images/logo.svg" alt="Shortly" height="28" style="filter:brightness(0) invert(1);">
+        </div>
+
+        <div class="col-6 col-lg-2">
+          <div class="fw-bold mb-3">Features</div>
+          <ul class="list-unstyled d-grid gap-2 m-0">
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">Link Shortening</a></li>
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">Branded Links</a></li>
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">Analytics</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-2">
+          <div class="fw-bold mb-3">Resources</div>
+          <ul class="list-unstyled d-grid gap-2 m-0">
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">Blog</a></li>
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">Developers</a></li>
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">Support</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-2">
+          <div class="fw-bold mb-3">Company</div>
+          <ul class="list-unstyled d-grid gap-2 m-0">
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">About</a></li>
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">Our Team</a></li>
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">Careers</a></li>
+            <li><a class="text-decoration-none" style="color:var(--c-gray-400)" href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-3 d-flex justify-content-lg-end">
+          <div class="d-flex gap-3">
+            <a class="text-white" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-square fs-4"></i></a>
+            <a class="text-white" href="#" aria-label="Twitter"><i class="fa-brands fa-twitter fs-4"></i></a>
+            <a class="text-white" href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest fs-4"></i></a>
+            <a class="text-white" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram fs-4"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="../app.js"></script>
+
+</body>
+</html>
